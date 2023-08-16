@@ -1,40 +1,29 @@
-// 设置图片切换
-let myImage = document.querySelector('img');
-
-myImage.onclick = function() {
-  let mySrc = myImage.getAttribute('src');
-  if (mySrc === 'images/test.png') {
-    myImage.setAttribute ('src','images/test2.png');
+let myImage = document.querySelector("img");
+myImage.onclick = function () {
+  let mySrc = myImage.getAttribute("src");
+  if (mySrc === "images/pic.jpg") {
+    myImage.setAttribute("src", "images/pic2.jpg");
   } else {
-    myImage.setAttribute ('src','images/test.png');
+    myImage.setAttribute("src", "images/pic.jpg");
   }
 };
-
-// 设置个性化欢迎信息
-// 获取新按钮和标题的引用
-let myButton = document.querySelector('button');
-let myHeading = document.querySelector('h1');
-
-// 个性化欢迎信息设置函数
+let myButton = document.querySelector("button");
+let myHeading = document.querySelector("h1");
 function setUserName() {
-  let myName = prompt('请输入你的名字。');
-  if (!myName || myName === null) {
+    let myName = prompt("请输入你的名字。");
+    if (!myName) {
+        setUserName();
+      } else {
+        localStorage.setItem("name", myName);
+        myHeading.textContent = "酷毙了，" + myName;
+      }
+  }
+  if (!localStorage.getItem("name")) {
     setUserName();
   } else {
-    localStorage.setItem('name', myName);
-    myHeading.innerHTML = 'Mozilla 酷毙了，' + myName;
+    let storedName = localStorage.getItem("name");
+    myHeading.textContent = " 酷毙了，" + storedName;
   }
-}
-
-// 初始化代码：在页面初次读取时进行构造工作：
-if (!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  let storedName = localStorage.getItem('name');
-  myHeading.textContent = 'Mozilla 酷毙了，' + storedName;
-}
-
-// 为按钮设置 onclick 事件处理器：
-myButton.onclick = function() {
-  setUserName();
-};
+  myButton.onclick = function () {
+    setUserName();
+  };
